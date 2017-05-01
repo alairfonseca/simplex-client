@@ -1,7 +1,11 @@
-$('.btn-add').on('click', function() {
+function adicionarVariavel() {
+  var funcaoObjetivo = $(".funcao-objetivo");
+  var id = 0;
 
-  var $input;
+  var variavel = "<input id='" + id + "' type='number' class='validate'>"
+                + "<label for='" + id + "'> x" + 2 + "</label>"
 
-  $input = $('<input type="text" class="validate">').appendTo('input-field');
+funcaoObjetivo.append(variavel);
 
-});
+  console.log(funcaoObjetivo);
+}
