@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <title>Simplex App</title>
   <link rel="stylesheet" href="icons/material.css">
-  <link rel="stylesheet" href="css/estilos.css">
   <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <nav>
@@ -15,28 +15,74 @@
     </div>
   </nav>
 
-  <div class="col s12 m7">
-
+  <form class="col s12">
     <div class="card horizontal">
       <div class="card-stacked">
         <div class="card-content">
           <div class="row">
-            <h5 class="header blue-text" style="text-align:center">Crie sua função objetivo</h5>
-            <form class="col s12">
-              <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add"><i class="material-icons">add</i></a>
-              <div class="row funcao-objetivo">
-                <div class="input-field col s2">
-                  <input id="x" type="number" class="validate">
-                  <label for="x">x1</label>
-                </div>
+            <h5 class="header blue-text" style="text-align:center">Crie a função objetivo</h5>
+            <div class="row">
+                <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-funcao-objetivo"><i class="material-icons">add</i></a>
+            </div>
+
+            <div class="row funcao-objetivo">
+              <!-- variaveis da fucnca objetivo serao adicionadas ao clicar no botao acima. -->
+
+              <div class="input-field col s2">
+                <select>
+                  <option value="0">Min</option>
+                  <option value="1">Max</option>
+                </select>
+                <!--<label>Max ou Min</label>-->
               </div>
-            </form>
+
+              <div class="input-field col s2 variavelObj">
+                <input id="1" type="number" class="validate">
+                <label for="1">x1</label>
+              </div>
+              <div class="input-field col s2 variavelObj">
+                <input id="2" type="number" class="validate">
+                <label for="2">x2</label>
+              </div>
+            </div>
           </div>
-              <a class="green accent-4 waves-effect waves-light btn right" style="margin-bottom: 10px">Adicionar restrições</a>
+          <a class="green accent-4 waves-effect waves-light btn right add-restricoes" style="margin-bottom: 10px">Adicionar restrições</a>
         </div>
       </div>
     </div>
-  </div>
+
+    <!--restricoes-->
+
+    <div id="restricoes" class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <div class="row">
+            <h5 class="header blue-text" style="text-align:center">Crie funções de restrição</h5>
+            <div class="row">
+                <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-var-restricao"><i class="material-icons">add</i></a>
+            </div>
+
+            <div class="row restricao">
+              <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
+              <div class="input-field col s2 variavelRestri">
+                <input id="r1" type="number" class="validate">
+                <label for="r1">x1</label>
+              </div>
+              <!--resultado-->
+              <div id="igual" class="input-field col s1">
+                <label>=</label>
+                </div>
+
+              <div class="input-field col s2">
+                <input id="resultado" type="number" class="validate">
+              </div>
+            </div>
+          </div>
+          <a class="green accent-4 waves-effect waves-light btn right" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <script src="js/jquery.min.js"></script>
   <script src="js/materialize.min.js"></script>
