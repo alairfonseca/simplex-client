@@ -1,8 +1,9 @@
 var isShowingRestricoes = false;
 
-//esconde o card das funcoes de restricao.
+//esconde o card das funcoes de restricao e de resultado simplex.
 $(document).ready(function(){
   $("#restricoes").hide();
+  $("#simplex").hide();
 });
 
 //carrega os inputs, pois o Materialize sobreescreve algumas coisas do html.
@@ -93,6 +94,37 @@ $(document).ready(function() {
     $('select').material_select();
 });
 
+
+
+
+//chama o back-end para cálcular o simplex e exibe o resultado
+$("#executar-simplex").click(function(){
+  var restricoes = $(".variavelRestri input");
+  var variavelVazia = false;
+
+  for (var i = 0; i < restricoes.length; i++) {
+      var restricao = restricoes[i];
+      if (restricao.value == '') {//se houver variavel vazia nao permita a adicao de mais uma variavel.
+          restricao.classList.add('invalid');
+          variavelVazia = true;
+      }
+  }
+
+  if (!variavelVazia) {
+      $("select").attr("disabled",true);
+      restricoes.attr("disabled",true);
+      $("#simplex").show();
+  }
+});
+
+
+$("#novo-calculo").click(function(){
+  if($(".campo-resultado").value != ''){
+      location.reload();
+  }
+});
+
+
 function adicionarFuncaoObjetiva() {
   var funcaoObjetivo = $(".funcao-objetivo");
   var id = (funcaoObjetivo.children().length - 1) + 1;
@@ -135,9 +167,9 @@ function adicionarNovaRestricao(){
                         + "</div>"
                         + "<div class='input-field col s2' id=" + "opcao-restricao-" + id + ">"
                         + "<select>"
-                        + "<option value=" + '"0"' + "><=</option>"
-                        + "<option value=" + '"1"' + ">>=</option>"
-                        + "<option value=" + '"2"' + ">=</option>"
+                        + "<option value=0><=</option>"
+                        + "<option value=1>>=</option>"
+                        + "<option value=2>=</option>"
                         + "</select>"
                         + "</div>"
                         + "<div class='input-field col s2 variavelRestri'>"
@@ -145,7 +177,6 @@ function adicionarNovaRestricao(){
                         + "</div>"
                         + "</div>";
 
-                        console.log(novaRestricao);
-
+console.log(novaRestricao);
         restricoes.append(novaRestricao);
 }
