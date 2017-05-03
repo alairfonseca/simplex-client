@@ -28,14 +28,45 @@ $(document).ready(function() {
     }
     //se houver variavel vazia nao permita a adicao de mais uma variavel.
     if (!variavelVazia && !isShowingRestricoes) {
-      adicionarVariavel();
+      adicionarFuncaoObjetiva();
     }
   });
 
+//adicionar variavel na restrição
   $(".add-var-restricao").click(function() {
-    adicionarVariavelRestricao();
+    var restricoes = $(".variavelRestriInput input");
+    var variavelVazia = false;
+    for (var i = 0; i < restricoes.length; i++) {
+      var restricao = restricoes[i];
+      if (restricao.value == '') {//se houver variavel vazia nao permita a adicao de mais uma variavel.
+        restricao.classList.add('invalid');
+        variavelVazia = true;
+      }
+    }
+    if(!variavelVazia){
+      adicionarVariavelRestricao();
+    }
   });
 
+//adiciona nova restrição
+$(".add-nova-restricao").click(function() {
+  var restricoes = $(".variavelRestri input");
+  var variavelVazia = false;
+
+  for (var i = 0; i < restricoes.length; i++) {
+      var restricao = restricoes[i];
+      if (restricao.value == '') {//se houver variavel vazia nao permita a adicao de mais uma variavel.
+          restricao.classList.add('invalid');
+          variavelVazia = true;
+      }
+  }
+
+  if (!variavelVazia) {
+      adicionarNovaRestricao();
+  }
+});
+
+//adicionando restrições
   $(".add-restricoes").click(function(){
     var variaveis = $(".variavelObj input");
     var variavelVazia = false;
@@ -44,6 +75,7 @@ $(document).ready(function() {
       var variavel = variaveis[i];
       if (variavel.value == '') {
         variavelVazia = true;
+        variavel.classList.add('invalid');
       }
     }
 
@@ -58,13 +90,13 @@ $(document).ready(function() {
     $('select').material_select();
 });
 
-function adicionarVariavel() {
+function adicionarFuncaoObjetiva() {
   var funcaoObjetivo = $(".funcao-objetivo");
   var id = (funcaoObjetivo.children().length - 1) + 1;
 
   var variavel = "<div class='input-field col s2 variavelObj'>"
-                + "<input id='" + id + "' type='number' class='validate'>"
-                + "<label for='" + id + "'> x" + id + "</label>"
+                + "<label> x" + id + "</label>"
+                + "<input type='number' class='validate'>"
                 + "</div>";
 
   funcaoObjetivo.append(variavel);
@@ -74,12 +106,20 @@ function adicionarVariavelRestricao() {
   var restricao = $(".restricao");
   var id = (restricao.children().length -2) + 1;
 
-  var igual = $("#igual");
+  var igual = $(".opcao-restricao");
 
   var variavel = "<div class='input-field col s2 variavelRestri'>"
-                + "<input id='r" + id + "' type='number' class='validate'>"
-                + "<label for='r" + id + "'> x" + id + "</label>"
+                + "<label> x" + id + "</label>"
+                + "<input type='number' class='validate'>"
                 + "</div>";
 
   igual.before(variavel);
+}
+
+function adicionarNovaRestricao(){
+      var val = $(".restricao");
+
+      var id = (val.length) + 1;
+
+      console.log(id);
 }

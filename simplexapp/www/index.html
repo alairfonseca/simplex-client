@@ -37,12 +37,12 @@
               </div>
 
               <div class="input-field col s2 variavelObj">
-                <input id="1" type="number" class="validate">
-                <label for="1">x1</label>
+                <label>x1</label>
+                <input type="number" class="validate">
               </div>
               <div class="input-field col s2 variavelObj">
-                <input id="2" type="number" class="validate">
-                <label for="2">x2</label>
+                <label>x2</label>
+                <input type="number" class="validate">
               </div>
             </div>
           </div>
@@ -62,23 +62,32 @@
                 <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-var-restricao"><i class="material-icons">add</i></a>
             </div>
 
-            <div class="row restricao">
+            <div id="1" class="row restricao">
               <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
-              <div class="input-field col s2 variavelRestri">
-                <input id="r1" type="number" class="validate">
-                <label for="r1">x1</label>
+              <div class="input-field col s2 variavelRestri variavelRestriInput">
+                <label>x1</label>
+                <input type="number" class="validate">
               </div>
               <!--resultado-->
-              <div id="igual" class="input-field col s1">
-                <label>=</label>
-                </div>
+              <div class="input-field col s2 opcao-restricao">
+                <select>
+                  <option value="0"><=</option>
+                  <option value="1">>=</option>
+                  <option value="2">=</option>
+                </select>
+              </div>
 
-              <div class="input-field col s2">
-                <input id="resultado" type="number" class="validate">
+              <div class="input-field col s2 variavelRestri">
+                <input id="resultado" name="result" type="number" class="validate">
               </div>
             </div>
           </div>
-          <a class="green accent-4 waves-effect waves-light btn right" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
+
+          <div class="row">
+            <a class="green accent-4 waves-effect waves-light btn left add-nova-restricao col s4" style="margin-bottom: 4px">Adicionar</a>
+            <a class="green accent-4 waves-effect waves-light btn right col s7" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
+          </div>
+
         </div>
       </div>
     </div>
