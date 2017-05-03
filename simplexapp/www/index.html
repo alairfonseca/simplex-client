@@ -56,36 +56,39 @@
     <div id="restricoes" class="card horizontal">
       <div class="card-stacked">
         <div class="card-content">
-          <div class="row">
+          <!--<div class="row">-->
             <h5 class="header blue-text" style="text-align:center">Crie funções de restrição</h5>
             <div class="row">
                 <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-var-restricao"><i class="material-icons">add</i></a>
             </div>
+            <div class="col s12" id="restricoesRows">
 
-            <div id="1" class="row restricao">
-              <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
-              <div class="input-field col s2 variavelRestri variavelRestriInput">
-                <label>x1</label>
-                <input type="number" class="validate">
-              </div>
-              <!--resultado-->
-              <div class="input-field col s2 opcao-restricao">
-                <select>
-                  <option value="0"><=</option>
-                  <option value="1">>=</option>
-                  <option value="2">=</option>
-                </select>
+              <div id="1" class="row restricao">
+                <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
+                <div class="input-field col s2 variavelRestri variavelRestriInput">
+                  <label>x1</label>
+                  <input type="number" class="validate">
+                </div>
+                <!--resultado-->
+                <div class="input-field col s2" id="opcao-restricao-1">
+                  <select>
+                    <option value="0"><=</option>
+                    <option value="1">>=</option>
+                    <option value="2">=</option>
+                  </select>
+                </div>
+
+                <div class="input-field col s2 variavelRestri">
+                  <input id="resultado" type="number" class="validate">
+                </div>
               </div>
 
-              <div class="input-field col s2 variavelRestri">
-                <input id="resultado" name="result" type="number" class="validate">
-              </div>
             </div>
-          </div>
+          <!--</div>-->
 
           <div class="row">
-            <a class="green accent-4 waves-effect waves-light btn left add-nova-restricao col s4" style="margin-bottom: 4px">Adicionar</a>
-            <a class="green accent-4 waves-effect waves-light btn right col s7" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
+            <a class="green accent-4 waves-effect waves-light btn left add-nova-restricao col s5" style="margin-bottom: 4px">+ Restrições</a>
+            <a class="green accent-4 waves-effect waves-light btn right col s6" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
           </div>
 
         </div>
