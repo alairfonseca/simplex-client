@@ -20,7 +20,7 @@
       <div class="card-stacked">
         <div class="card-content">
           <div class="row">
-            <h5 class="header blue-text" style="text-align:center">Crie a função objetivo</h5>
+            <h5 class="header blue-text" style="text-align:center">Função Objetiva</h5>
             <div class="row">
                 <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-funcao-objetivo"><i class="material-icons">add</i></a>
             </div>
@@ -46,7 +46,7 @@
               </div>
             </div>
           </div>
-          <a class="green accent-4 waves-effect waves-light btn right add-restricoes" style="margin-bottom: 10px">Adicionar restrições</a>
+          <a class="blue accent-4 waves-effect waves-light btn right add-restricoes" style="margin-bottom: 10px">Adicionar Restrições</a>
         </div>
       </div>
     </div>
@@ -57,12 +57,11 @@
       <div class="card-stacked">
         <div class="card-content">
           <!--<div class="row">-->
-            <h5 class="header blue-text" style="text-align:center">Crie funções de restrição</h5>
+            <h5 class="header blue-text" style="text-align:center">Restrições</h5>
             <div class="row">
                 <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-var-restricao"><i class="material-icons">add</i></a>
             </div>
             <div class="col s12" id="restricoesRows">
-
               <div id="1" class="row restricao">
                 <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
                 <div class="input-field col s2 variavelRestri variavelRestriInput">
@@ -87,13 +86,33 @@
           <!--</div>-->
 
           <div class="row">
-            <a class="green accent-4 waves-effect waves-light btn left add-nova-restricao col s5" style="margin-bottom: 4px">+ Restrições</a>
-            <a class="green accent-4 waves-effect waves-light btn right col s6" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
+            <a class="blue accent-4 waves-effect waves-light btn left add-nova-restricao col s5" style="margin-bottom: 4px">+ Restrições</a>
+            <a class="green accent-4 waves-effect waves-light btn right col s6" id="executar-simplex" style="margin-bottom: 10px">EXECUTAR SIMPLEX</a>
           </div>
 
         </div>
       </div>
     </div>
+
+
+<!-- Calculo Simplez -->
+
+    <div id="simplex" class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <!--<div class="row">-->
+            <h5 class="header blue-text" style="text-align:center">A Solução Ótima É: </h5>
+            <div class="row">
+                <textarea class="campo-resultado" rows="8" cols="40"></textarea>
+            </div>
+          <div class="row">
+            <a class="blue accent-4 waves-effect waves-light btn right col s10" id="novo-calculo" style="margin-bottom: 4px">Novo Cálculo Simplex</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </form>
 
   <script src="js/jquery.min.js"></script>
