@@ -1,5 +1,6 @@
 var isShowingRestricoes = false;
-
+var countRest = 1;
+var idRest = 1;
 //esconde o card das funcoes de restricao e de resultado simplex.
 $(document).ready(function(){
   $("#restricoes").hide();
@@ -96,8 +97,13 @@ $(document).ready(function() {
 
 
 
+$('#novo-calculo').click(function (){
+  countRest = 0;
+  idRest = 1;
+  $('#restricoes').hide();
+  $('#simplex').hide();
+});
 
-//chama o back-end para cálcular o simplex e exibe o resultado
 $("#executar-simplex").click(function(){
   var restricoes = $(".variavelRestri input");
   var variavelVazia = false;
@@ -111,6 +117,80 @@ $("#executar-simplex").click(function(){
   }
 
   if (!variavelVazia) {
+    //conta variaveis da funcao objetivo
+      var variavelaux = $(".variavelObj>input").length;
+      //cria array variaveis da F.O
+      var valfuncobj = [];
+      for(var i = 0; i < variavelaux; i++){
+        valfuncobj.push($(".variavelObj>input")[i].value);
+      }
+      //ve se a F.O é maximizacao ou minimizacao
+      const maxmin = $(".opFO>.select-wrapper>.select-dropdown")[0].value == 'Min' ? false : true;
+      var rest = [];
+      var aux = [];
+      //ve quantas restrições tem
+      for(var i = 0; i < $('.restricao').length; i ++){
+        rest.push('{');
+        //itera em cada restricao
+        for(var j = 0; j < $('#restricao-'+ (i+1) + '>.variavelRestriInput').length;j++){
+          aux.push(parseFloat($('#restricao-'+ (i+1) +'>.variavelRestri>input')[j].value));
+        }
+        //adiciona as variaveis auxiliares na string de json
+        rest.push('"variaveisLivres": [' + (aux.length == 1 ? aux[0] : aux.join(',')) + '],');
+        aux = [];
+        //adiciona o resultado
+        rest.push('"resultado":' + (parseFloat($('#restricao-' + (i+1) + '>.variavelRestri>#resultado')[0].value)) + ',');
+        //adiciona variavel aux
+        variavelaux++;
+        rest.push('"variavelAuxiliar":'+ (variavelaux) +',');
+        //adiciona tipo da reta da funcao
+        var tipofunc;
+        switch ($('#opcao-restricao-' + (i+1) + '>.select-wrapper>.select-dropdown')[0].value) {
+          case '<=':
+               tipofunc = 'MENOR_OU_IGUAL';
+            break;
+          case '>=':
+              tipofunc = 'MAIOR_OU_IGUAL';
+              break;
+          case '>':
+              tipofunc = 'MAIOR';
+            break;
+          case '<':
+              tipofunc = 'MENOR';
+            break;
+          default:
+            tipofunc = 'IGUAL';
+        }
+        rest.push('"maiorQue": "' + tipofunc + '"');
+        rest.push((i+1) == $('.restricao').length ? '}' : '},');
+      }
+      var dat = '{"variaveisLivres":[' + valfuncobj.join(',') + '],"maximizacao":' + maxmin + ',"variavelAuxiliar":0,"restricoes":[' + rest.join('') + ']}';
+      console.log(dat);
+      /*const dat = JSON.stringify(
+            {
+          "variaveisLivres": [
+            valfuncobj.join(',')
+          ],
+          "maximizacao": maxmin,
+          "variavelAuxiliar": 0,
+          "restricoes": [
+            JSON.stringify(rest.join(''))
+          ]
+        }
+      );*/
+
+      $.ajax({
+            type: 'POST',
+            url: 'http://54.94.163.200:8080/simplex-service-0.0.1-SNAPSHOT/simplex',
+            data: dat,
+            contentType: "application/json; charset=utf-8",
+                      success: function (result) {
+                        $('.campo-resultado').val(result);
+                      },
+                      error: function (request, status, errorThrown) {
+                        $('.campo-resultado').val('Não foi obtido resultado da função');
+                      }
+                    });
       $("select").attr("disabled",true);
       restricoes.attr("disabled",true);
       $("#simplex").show();
@@ -138,38 +218,46 @@ function adicionarFuncaoObjetiva() {
 }
 
 function adicionarVariavelRestricao() {
+
+  if($(".variavelRestriInput input").length < $(".variavelObj>input").length * countRest){
+  idRest++;
   var restricao = $(".restricao");
 
   var posicaoRes = "#opcao-restricao-" + restricao.length;
-  var id = restricao.length + 1;
 
   var igual = $(posicaoRes);
 
   var variavel = "<div class='input-field col s2 variavelRestri variavelRestriInput'>"
-                + "<label> x" + id + "</label>"
+                + "<label> x" + idRest + "</label>"
                 + "<input type='number' class='validate'>"
                 + "</div>";
 
   igual.before(variavel);
 }
+}
+
 
 function adicionarNovaRestricao(){
+      countRest ++;
+      idRest = 1;
       var variavel = $(".restricao");
 
       var restricoes = $("#restricoesRows");
 
       var id = variavel.length + 1;
 
-      var novaRestricao = "<div id=" +id+" class='row restricao'>"
+      var novaRestricao = "<div id='restricao-" +id+"' class='row restricao'>"
                         + "<div class='input-field col s2 variavelRestri variavelRestriInput'>"
                         + "<label>x1</label>"
                         + "<input type='number' class='validate'>"
                         + "</div>"
                         + "<div class='input-field col s2' id=" + "opcao-restricao-" + id + ">"
-                        + "<select>"
+                        + "<select id='select-rs-"+ id + "'>"
                         + "<option value=0><=</option>"
                         + "<option value=1>>=</option>"
                         + "<option value=2>=</option>"
+                        + "<option value=2>></option>"
+                        + "<option value=2><</option>"
                         + "</select>"
                         + "</div>"
                         + "<div class='input-field col s2 variavelRestri'>"
@@ -177,6 +265,6 @@ function adicionarNovaRestricao(){
                         + "</div>"
                         + "</div>";
 
-console.log(novaRestricao);
         restricoes.append(novaRestricao);
+        $('#select-rs-' + id).material_select();
 }

@@ -28,7 +28,7 @@
             <div class="row funcao-objetivo">
               <!-- variaveis da fucnca objetivo serao adicionadas ao clicar no botao acima. -->
 
-              <div class="input-field col s2">
+              <div class="input-field opFO col s2">
                 <select>
                   <option value="0">Min</option>
                   <option value="1">Max</option>
@@ -62,7 +62,7 @@
                 <a class="btn-floating waves-effect waves-light light-blue accent-4 right btn-add add-var-restricao"><i class="material-icons">add</i></a>
             </div>
             <div class="col s12" id="restricoesRows">
-              <div id="1" class="row restricao">
+              <div id="restricao-1" class="row restricao">
                 <!-- variaveis da restricao serao adicionadas ao clicar no botao acima. -->
                 <div class="input-field col s2 variavelRestri variavelRestriInput">
                   <label>x1</label>
@@ -74,6 +74,8 @@
                     <option value="0"><=</option>
                     <option value="1">>=</option>
                     <option value="2">=</option>
+                    <option value="2">></option>
+                    <option value="2"><</option>
                   </select>
                 </div>
 
@@ -103,10 +105,10 @@
           <!--<div class="row">-->
             <h5 class="header blue-text" style="text-align:center">A Solução Ótima É: </h5>
             <div class="row">
-                <textarea class="campo-resultado" rows="8" cols="40"></textarea>
+                <textarea class="campo-resultado materialize-textarea validate" rows="8" cols="40"></textarea>
             </div>
           <div class="row">
-            <a class="blue accent-4 waves-effect waves-light btn right col s10" id="novo-calculo" style="margin-bottom: 4px">Novo Cálculo Simplex</a>
+            <a disabled="true" class="blue accent-4 waves-effect waves-light btn right col s10" id="novo-calculo" style="margin-bottom: 4px">Novo Cálculo Simplex</a>
           </div>
 
         </div>
@@ -116,7 +118,7 @@
   </form>
 
   <script src="js/jquery.min.js"></script>
-  <script src="js/materialize.min.js"></script>
-  <script type="text/javascript" src="js/app.js"></script>
+  <script defer src="js/materialize.min.js"></script>
+  <script defer type="text/javascript" src="js/app.js"></script>
 </body>
 </html>
